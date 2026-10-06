@@ -1,26 +1,68 @@
 package model;
 
 public class DettaglioOrdine {
-    private int idDettaglio;
-    private int ordineId;
-    private int libroId;
+    
+    private int id;
+    private int idOrdine;
+    private int idLibro;
+    private double prezzoSingolo;
     private int quantita;
-    private double prezzoAcquisto;
+    private boolean recensito;
+    private Libro libro;
 
-    public DettaglioOrdine() {}
+    public int getId() {
+        return id;
+    }
 
-    public int getIdDettaglio() { return idDettaglio; }
-    public void setIdDettaglio(int idDettaglio) { this.idDettaglio = idDettaglio; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getOrdineId() { return ordineId; }
-    public void setOrdineId(int ordineId) { this.ordineId = ordineId; }
+    public int getIdOrdine() {
+        return idOrdine;
+    }
 
-    public int getLibroId() { return libroId; }
-    public void setLibroId(int libroId) { this.libroId = libroId; }
+    public void setIdOrdine(int idOrdine) {
+        this.idOrdine = idOrdine;
+    }
 
-    public int getQuantita() { return quantita; }
-    public void setQuantita(int quantita) { this.quantita = quantita; }
+    public int getIdLibro() {
+        return idLibro;
+    }
 
-    public double getPrezzoAcquisto() { return prezzoAcquisto; }
-    public void setPrezzoAcquisto(double prezzoAcquisto) { this.prezzoAcquisto = prezzoAcquisto; }
+    public void setIdLibro(int idLibro) {
+        this.idLibro = idLibro;
+    }
+
+    public double getPrezzoSingolo() {
+        return prezzoSingolo;
+    }
+
+    public void setPrezzoSingolo(double prezzoSingolo) {
+        this.prezzoSingolo = prezzoSingolo;
+    }
+
+    public int getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(int quantita) {
+        this.quantita = quantita;
+    }
+
+    public boolean isRecensito() {
+        return recensito;
+    }
+
+    public void setRecensito(boolean recensito) {
+        this.recensito = recensito;
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
 }
