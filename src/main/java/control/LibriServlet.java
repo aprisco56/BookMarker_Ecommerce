@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,11 +24,11 @@ public class LibriServlet extends HttpServlet {
         try {
             List<Libro> libriTrovati = service.getCatalogoCompleto();
             request.setAttribute("elencoLibri", libriTrovati);
-            request.getRequestDispatcher("catalogo.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/catalogo.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Errore durante il caricamento del catalogo.");
-            request.getRequestDispatcher("catalogo.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/catalogo.jsp").forward(request, response);
         }
     }
 

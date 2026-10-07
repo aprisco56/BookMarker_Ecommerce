@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +18,10 @@ import service.exception.UtenteServiceException.*;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -34,15 +38,16 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("emailUtente", utenteTrovato.getEmail());
             session.setAttribute("utenteObj", utenteTrovato);
             
+            session.setMaxInactiveInterval(30 * 60);
+
             String ruoloDB = utenteTrovato.getRuolo();
-            if (ruoloDB != null) {
-                session.setAttribute("ruoloUtente", ruoloDB.toUpperCase());
+            if (ruoloDB != null && ruoloDB.equalsIgnoreCase("ADMIN")) {
+                session.setAttribute("ruoloUtente", "ADMIN");
+                response.sendRedirect("GestioneCatalogoServlet");
             } else {
                 session.setAttribute("ruoloUtente", "CLIENTE"); 
+                response.sendRedirect("LibriServlet");
             }
-            
-            session.setMaxInactiveInterval(30 * 60);
-            response.sendRedirect("index.jsp");
 
         } catch (CredenzialiNonValideException | UtenteNonAbilitatoException e) {
             sendError(request, response, e.getMessage());
@@ -54,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
         request.setAttribute("errorMessage", message);
-        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
         rd.forward(request, response);
     }
 }

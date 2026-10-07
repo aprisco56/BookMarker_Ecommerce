@@ -20,8 +20,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= libro.getTitolo() %> - Dettaglio</title>
     
-    <link rel="stylesheet" href="css/catalogo.css"> 
-    <link rel="stylesheet" href="css/dettaglio.css"> 
+    <link rel="stylesheet" href="styles/catalogo.css"> 
+    <link rel="stylesheet" href="styles/dettaglio.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -29,15 +29,15 @@
     <header>
         <div class="header-spacer"></div>
         <a href="index.jsp" class="logo-container"> 
-            <img src="img/logo.png" alt="BookMarker Logo">
+            <img src="images/logo.png" alt="BookMarker Logo">
         </a>
         <nav class="nav-buttons">
             <a href="LibriServlet" class="btn">Torna al Catalogo</a>
             <% if (nomeUtente != null) { %>
                 <a href="CarrelloServlet" class="btn" style="background-color: #f1c40f; color: #333;"><i class="fa-solid fa-cart-shopping"></i> Carrello</a>
-                <a href="logout.jsp" class="btn" style="background-color: #c0392b; color: white;">Logout</a>
+                <a href="LogoutServlet" class="btn" style="background-color: #c0392b; color: white;">Logout</a>
             <% } else { %>
-                <a href="login.jsp" class="btn">Login</a>
+                <a href="LoginServlet" class="btn">Login</a>
             <% } %>
         </nav>
     </header>

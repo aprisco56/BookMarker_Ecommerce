@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,10 +25,10 @@ public class CarrelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String nomeUtente = (String) session.getAttribute("utenteLoggato");
+        String emailUtente = (String) session.getAttribute("emailUtente");
 
-        if (nomeUtente == null) {
-            response.sendRedirect("login.jsp");
+        if (emailUtente == null) {
+            response.sendRedirect("LoginServlet");
             return;
         }
 
@@ -38,15 +38,15 @@ public class CarrelloServlet extends HttpServlet {
             session.setAttribute("carrello", carrello);
         }
 
-        request.getRequestDispatcher("carrello.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/carrello.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String nomeUtente = (String) session.getAttribute("utenteLoggato");
+        String emailUtente = (String) session.getAttribute("emailUtente");
 
-        if (nomeUtente == null) {
-            response.sendRedirect("login.jsp");
+        if (emailUtente == null) {
+            response.sendRedirect("LoginServlet");
             return;
         }
 

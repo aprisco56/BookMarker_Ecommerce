@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +17,10 @@ import service.exception.UtenteServiceException.*;
 public class RegistrazioneServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/view/registrazione.jsp").forward(request, response);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
@@ -32,7 +36,7 @@ public class RegistrazioneServlet extends HttpServlet {
 
         try {
             service.registraUtente(nome, cognome, codiceFiscale, email, password, confirmPassword, domanda, risposta);
-            response.sendRedirect("login.jsp?reg=success");
+            response.sendRedirect("LoginServlet?reg=success");
 
         } catch (FormatoDatiNonValidoException | FormatoPasswordNonValidoException | PasswordNonCorrispondentiException | EmailGiaRegistrataException | CodiceFiscaleGiaRegistratoException e) {
             request.setAttribute("errorMessage", e.getMessage());
@@ -41,7 +45,7 @@ public class RegistrazioneServlet extends HttpServlet {
             request.setAttribute("oldCodiceFiscale", codiceFiscale);
             request.setAttribute("oldEmail", email);
             
-            RequestDispatcher rd = request.getRequestDispatcher("registrazione.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/registrazione.jsp");
             rd.forward(request, response);
 
         } catch (Exception e) {
@@ -52,7 +56,7 @@ public class RegistrazioneServlet extends HttpServlet {
             request.setAttribute("oldCodiceFiscale", codiceFiscale);
             request.setAttribute("oldEmail", email);
 
-            RequestDispatcher rd = request.getRequestDispatcher("registrazione.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/registrazione.jsp");
             rd.forward(request, response);
         }
     }

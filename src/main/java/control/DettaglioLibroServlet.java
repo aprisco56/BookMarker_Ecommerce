@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,10 +39,10 @@ public class DettaglioLibroServlet extends HttpServlet {
                 request.setAttribute("libroDettaglio", libro);
                 request.setAttribute("listaRecensioni", recensioni);
                 
-                request.getRequestDispatcher("dettaglioLibro.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/view/dettaglioLibro.jsp").forward(request, response);
                 
             } catch (Exception e) {
-                // STAMPA L'ERRORE NELLA CONSOLE DI ECLIPSE!
+
                 e.printStackTrace();
                 response.sendRedirect("LibriServlet");
             }

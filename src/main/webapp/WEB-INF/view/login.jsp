@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BookMarker</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="header-spacer"></div>
         <a href="index.jsp" class="logo-container">
-            <img src="img/logo.png" alt="BookMarker Logo - Home">
+            <img src="images/logo.png" alt="BookMarker Logo - Home">
         </a>
         <nav class="nav-buttons">
-            <a href="registrazione.jsp" class="btn">Registrati</a>
+            <a href="RegistrazioneServlet" class="btn">Registrati</a>
         </nav>
     </header>
 
@@ -70,7 +70,7 @@
             </form>
             
             <div class="form-links">
-                <a href="registrazione.jsp">Non hai un account? Registrati</a>
+                <a href="RegistrazioneServlet">Non hai un account? Registrati</a>
             </div>
         </div>
     </main>

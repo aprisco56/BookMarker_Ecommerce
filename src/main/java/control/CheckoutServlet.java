@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,7 +32,7 @@ public class CheckoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (session.getAttribute("emailUtente") == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("LoginServlet");
             return;
         }
 
@@ -42,7 +42,7 @@ public class CheckoutServlet extends HttpServlet {
             return;
         }
 
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/checkout.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,7 +50,7 @@ public class CheckoutServlet extends HttpServlet {
         String emailUtente = (String) session.getAttribute("emailUtente");
 
         if (emailUtente == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("LoginServlet");
             return;
         }
 
@@ -102,7 +102,7 @@ public class CheckoutServlet extends HttpServlet {
            
             session.removeAttribute("carrello");
            
-            response.sendRedirect("conferma.jsp?id=" + idOrdine);
+            response.sendRedirect("ConfermaServlet?id=" + idOrdine);
 
         } catch (SQLException e) {
             e.printStackTrace();

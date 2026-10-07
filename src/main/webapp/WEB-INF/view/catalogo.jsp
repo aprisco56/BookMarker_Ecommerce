@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo - BookMarker Store</title>
-    <link rel="stylesheet" href="css/catalogo.css">
+    <link rel="stylesheet" href="styles/catalogo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -23,17 +23,25 @@
     <header>
         <div class="header-spacer"></div>
         <a href="index.jsp" class="logo-container"> 
-            <img src="img/logo.png" alt="BookMarker Logo">
+            <img src="images/logo.png" alt="BookMarker Logo">
         </a>
         
         <nav class="nav-buttons">
             <% if (isLoggato) { %>
                 <span class="user-greeting">Ciao, <b><%= nomeUtente %></b></span>
                 <a href="CarrelloServlet" class="btn" style="background-color: #f1c40f; color: #333;"><i class="fa-solid fa-cart-shopping"></i> Carrello</a>
-                <a href="logout.jsp" class="btn" style="background-color: #c0392b; color: white;">Logout</a>
+                <%
+    String ruoloAttuale = (String) session.getAttribute("ruoloUtente");
+    if ("ADMIN".equals(ruoloAttuale)) {
+%>
+    <a href="GestioneCatalogoServlet" class="btn" style="background-color: #f39c12; color: white; margin-right: 10px; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-weight: bold;">Area Admin</a>
+<%
+    }
+%>
+                <a href="LogoutServlet" class="btn" style="background-color: #c0392b; color: white;">Logout</a>
             <% } else { %>
-                <a href="registrazione.jsp" class="btn">Registrati</a>
-                <a href="login.jsp" class="btn">Login</a>
+                <a href="RegistrazioneServlet" class="btn">Registrati</a>
+                <a href="LoginServlet" class="btn">Login</a>
             <% } %>
         </nav>
     </header>

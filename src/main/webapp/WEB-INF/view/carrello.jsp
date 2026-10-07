@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrello - BookMarker Store</title>
-    <link rel="stylesheet" href="css/catalogo.css"> 
+    <link rel="stylesheet" href="styles/catalogo.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .cart-container { max-width: 900px; margin: 40px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -38,12 +38,12 @@
     <header>
         <div class="header-spacer"></div>
         <a href="index.jsp" class="logo-container"> 
-            <img src="img/logo.png" alt="BookMarker Logo">
+            <img src="images/logo.png" alt="BookMarker Logo">
         </a>
         <nav class="nav-buttons">
             <a href="LibriServlet" class="btn">Continua lo Shopping</a>
             <span class="user-greeting">Ciao, <b><%= nomeUtente %></b></span>
-            <a href="logout.jsp" class="btn" style="background-color: #c0392b; color: white;">Logout</a>
+            <a href="LogoutServlet" class="btn" style="background-color: #c0392b; color: white;">Logout</a>
         </nav>
     </header>
 
