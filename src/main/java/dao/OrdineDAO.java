@@ -77,6 +77,50 @@ public class OrdineDAO {
         }
         return ordini;
     }
+
+    public List<Ordine> doRetrieveByFiltri(String email, String dataDa, String dataA) throws SQLException {
+        StringBuilder query = new StringBuilder("SELECT * FROM ordini WHERE 1=1");
+        List<Object> parametri = new ArrayList<>();
+
+        if (email != null && !email.trim().isEmpty()) {
+            query.append(" AND utente_email LIKE ?");
+            parametri.add("%" + email.trim() + "%");
+        }
+        if (dataDa != null && !dataDa.trim().isEmpty()) {
+            query.append(" AND DATE(data_ordine) >= ?");
+            parametri.add(dataDa);
+        }
+        if (dataA != null && !dataA.trim().isEmpty()) {
+            query.append(" AND DATE(data_ordine) <= ?");
+            parametri.add(dataA);
+        }
+        
+        query.append(" ORDER BY data_ordine DESC");
+
+        List<Ordine> ordini = new ArrayList<>();
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query.toString())) {
+             
+            for (int i = 0; i < parametri.size(); i++) {
+                ps.setObject(i + 1, parametri.get(i));
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Ordine ordine = new Ordine();
+                    ordine.setIdOrdine(rs.getInt("id_ordine"));
+                    ordine.setUtenteEmail(rs.getString("utente_email"));
+                    ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                    ordine.setTotale(rs.getDouble("totale"));
+                    ordine.setIndirizzoSpedizione(rs.getString("indirizzo_spedizione"));
+                    ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
+                    ordine.setStato(rs.getString("stato"));
+                    ordini.add(ordine);
+                }
+            }
+        }
+        return ordini;
+    }
     
     public void doUpdateStato(int idOrdine, String nuovoStato) throws SQLException {
         String query = "UPDATE ordini SET stato = ? WHERE id_ordine = ?";

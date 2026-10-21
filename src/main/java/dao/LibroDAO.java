@@ -53,7 +53,7 @@ public class LibroDAO {
     }
 
     public List<Libro> doRetrieveAll() throws SQLException {
-        String query = "SELECT * FROM libri";
+        String query = "SELECT * FROM libri WHERE attivo = true OR attivo = 1";
         List<Libro> libri = new ArrayList<>();
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement ps = connection.prepareStatement(query);
@@ -90,6 +90,15 @@ public class LibroDAO {
             ps.setBoolean(8, libro.isAttivo());
             ps.setDouble(9, libro.getPrezzo());
             ps.setInt(10, libro.getIdLibro());
+            ps.executeUpdate();
+        }
+    }
+
+    public void doDelete(int id) throws SQLException {
+        String query = "UPDATE libri SET attivo = false WHERE id_libro = ?";
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
             ps.executeUpdate();
         }
     }
