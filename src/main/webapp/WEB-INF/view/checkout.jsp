@@ -2,6 +2,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.DettaglioOrdine" %>
 <%
+    if (session.getAttribute("csrfToken") == null) {
+        session.setAttribute("csrfToken", java.util.UUID.randomUUID().toString());
+    }
+
     String nomeUtente = (String) session.getAttribute("utenteLoggato");
     if (nomeUtente == null) {
         response.sendRedirect("login.jsp");
@@ -25,26 +29,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - BookMarker Store</title>
-    <link rel="stylesheet" href="styles/catalogo.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/styles/catalogo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        .checkout-container { max-width: 650px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .form-row { display: flex; gap: 15px; margin-bottom: 15px; }
-        .form-row .col { flex: 1; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label, .form-row label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; font-size: 0.95rem; }
-        .form-input, .form-select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; box-sizing: border-box; transition: border-color 0.3s; }
-        .form-input:focus, .form-select:focus { border-color: #3498db; outline: none; }
-        .btn-submit { width: 100%; background-color: #27ae60; color: white; padding: 15px; border: none; border-radius: 4px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 20px; transition: background 0.3s; }
-        .btn-submit:hover { background-color: #219653; }
-        .section-title { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 25px; margin-top: 25px;}
-    </style>
 </head>
 <body>
     <header>
         <div class="header-spacer"></div>
         <a href="index.jsp" class="logo-container">
-            <img src="images/logo.png" alt="BookMarker Logo">
+            <img src="<%= request.getContextPath() %>/images/logo.png" alt="BookMarker Logo">
         </a>
         <nav class="nav-buttons">
             <a href="CarrelloServlet" class="btn">Torna al Carrello</a>
@@ -52,14 +44,16 @@
     </header>
 
     <main class="checkout-container">
-        <div style="background-color: #f8f9fa; padding: 20px; border-radius: 6px; border: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="margin: 0; color: #2c3e50;">Totale da pagare:</h2>
-            <span style="color: #27ae60; font-size: 1.8rem; font-weight: bold;">€ <%= String.format("%.2f", totale) %></span>
+        <div class="checkout-total-box">
+            <h2 class="checkout-total-label">Totale da pagare:</h2>
+            <span class="checkout-total-amount">€ <%= String.format("%.2f", totale) %></span>
         </div>
 
         <h3 class="section-title"><i class="fa-solid fa-truck-fast"></i> Dettagli Spedizione</h3>
 
         <form action="CheckoutServlet" method="POST">
+            <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
+            
             <div class="form-row">
                 <div class="col">
                     <label for="nome">Nome</label>
@@ -77,7 +71,7 @@
             </div>
 
             <div class="form-row">
-                <div class="col" style="flex: 2;">
+                <div class="col col-wide">
                     <label for="citta">Città</label>
                     <input type="text" id="citta" name="citta" class="form-input" placeholder="Città" required>
                 </div>
@@ -87,7 +81,7 @@
                 </div>
                 <div class="col">
                     <label for="provincia">Prov.</label>
-                    <input type="text" id="provincia" name="provincia" class="form-input" placeholder="RM" maxlength="2" style="text-transform: uppercase;" required>
+                    <input type="text" id="provincia" name="provincia" class="form-input uppercase-input" placeholder="RM" maxlength="2" required>
                 </div>
             </div>
 

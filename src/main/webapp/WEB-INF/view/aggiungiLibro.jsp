@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+    if (session.getAttribute("csrfToken") == null) {
+        session.setAttribute("csrfToken", java.util.UUID.randomUUID().toString());
+    }
+
     String ruolo = (String) session.getAttribute("ruoloUtente");
     if (ruolo == null || !ruolo.equals("ADMIN")) {
         response.sendRedirect("LoginServlet");
@@ -10,27 +14,22 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Aggiungi Libro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Catalogo - Admin</title>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/styles/catalogo.css">
-    <style>
-        .form-container { max-width: 600px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-submit { background-color: #27ae60; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; width: 100%; }
-        .error-msg { color: #e74c3c; margin-bottom: 15px; }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/styles/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <a href="GestioneCatalogoServlet" class="logo-container">
-            <img src="<%= request.getContextPath() %>/images/logo.png" alt="Logo">
-        </a>
-        <nav class="nav-buttons">
-            <a href="GestioneCatalogoServlet" class="btn">Indietro</a>
-        </nav>
-    </header>
-
+ <header>
+    <div class="header-spacer"></div>
+    <a href="GestioneCatalogoServlet" class="logo-container">
+        <img src="<%= request.getContextPath() %>/images/logo.png" alt="Logo">
+    </a>
+    <nav class="nav-buttons">
+        <a href="GestioneCatalogoServlet" class="btn">Indietro</a>
+    </nav>
+</header>
     <main class="form-container">
         <h2>Aggiungi Nuovo Libro</h2>
         
@@ -39,6 +38,8 @@
         <% } %>
 
         <form action="AggiungiLibroServlet" method="POST">
+            <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
+            
             <div class="form-group">
                 <label for="titolo">Titolo *</label>
                 <input type="text" id="titolo" name="titolo" required>

@@ -1,18 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    if (session.getAttribute("csrfToken") == null) {
+        session.setAttribute("csrfToken", java.util.UUID.randomUUID().toString());
+    }
+%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BookMarker</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="header-spacer"></div>
         <a href="index.jsp" class="logo-container">
-            <img src="images/logo.png" alt="BookMarker Logo - Home">
+            <img src="<%= request.getContextPath() %>/images/logo.png" alt="BookMarker Logo - Home">
         </a>
         <nav class="nav-buttons">
             <a href="RegistrazioneServlet" class="btn">Registrati</a>
@@ -51,6 +56,7 @@
             %>
             
             <form action="LoginServlet" method="POST">
+                <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="example@mail.com" required>
@@ -60,8 +66,8 @@
                     <input type="password" id="password" name="password" placeholder="password" required>
                 </div>
 
-                <div style="text-align: right; margin-top: 5px; margin-bottom: 15px;">
-                    <a href="RecuperoPasswordServlet" style="color: #267bbc; font-size: 0.9em; text-decoration: none;">
+                <div class="forgot-password-container">
+                    <a href="RecuperoPasswordServlet" class="forgot-password-link">
                         Hai dimenticato la password?
                     </a>
                 </div>
