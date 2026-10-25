@@ -46,6 +46,13 @@ public class CheckoutServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String sessionToken = (String) request.getSession().getAttribute("csrfToken");
+    	String requestToken = request.getParameter("csrfToken");
+
+    	if (sessionToken == null || requestToken == null || !sessionToken.equals(requestToken)) {
+    	    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    	    return;
+    	}
         HttpSession session = request.getSession();
         String emailUtente = (String) session.getAttribute("emailUtente");
 

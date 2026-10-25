@@ -22,6 +22,13 @@ public class RegistrazioneServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String sessionToken = (String) request.getSession().getAttribute("csrfToken");
+    	String requestToken = request.getParameter("csrfToken");
+
+    	if (sessionToken == null || requestToken == null || !sessionToken.equals(requestToken)) {
+    	    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    	    return;
+    	}
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String codiceFiscale = request.getParameter("codice_fiscale");

@@ -25,12 +25,6 @@ public class CarrelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String emailUtente = (String) session.getAttribute("emailUtente");
-
-        if (emailUtente == null) {
-            response.sendRedirect("LoginServlet");
-            return;
-        }
 
         List<DettaglioOrdine> carrello = (List<DettaglioOrdine>) session.getAttribute("carrello");
         if (carrello == null) {
@@ -42,13 +36,14 @@ public class CarrelloServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String emailUtente = (String) session.getAttribute("emailUtente");
+    	String sessionToken = (String) request.getSession().getAttribute("csrfToken");
+    	String requestToken = request.getParameter("csrfToken");
 
-        if (emailUtente == null) {
-            response.sendRedirect("LoginServlet");
-            return;
-        }
+    	if (sessionToken == null || requestToken == null || !sessionToken.equals(requestToken)) {
+    	    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    	    return;
+    	}
+        HttpSession session = request.getSession();
 
         String action = request.getParameter("action");
         List<DettaglioOrdine> carrello = (List<DettaglioOrdine>) session.getAttribute("carrello");
@@ -62,6 +57,7 @@ public class CarrelloServlet extends HttpServlet {
             try {
                 int idLibro = Integer.parseInt(request.getParameter("idLibro"));
                 Libro libro = libroDAO.doRetrieveById(idLibro);
+                boolean aggiunto = false;
 
                 if (libro != null && libro.getDisponibilita() > 0) {
                     boolean trovato = false;
@@ -69,6 +65,7 @@ public class CarrelloServlet extends HttpServlet {
                         if (d.getIdLibro() == idLibro) {
                             if (d.getQuantita() < libro.getDisponibilita()) {
                                 d.setQuantita(d.getQuantita() + 1);
+                                aggiunto = true;
                             }
                             trovato = true;
                             break;
@@ -82,12 +79,49 @@ public class CarrelloServlet extends HttpServlet {
                         nuovoDettaglio.setQuantita(1);
                         nuovoDettaglio.setPrezzoSingolo(libro.getPrezzo());
                         carrello.add(nuovoDettaglio);
+                        aggiunto = true;
                     }
                 }
-                response.sendRedirect("DettaglioLibroServlet?id=" + idLibro + "&msg=add_cart_ok");
+
+                if (aggiunto) {
+                    response.sendRedirect("DettaglioLibroServlet?id=" + idLibro + "&msg=add_cart_ok");
+                } else {
+                    response.sendRedirect("DettaglioLibroServlet?id=" + idLibro + "&msg=add_cart_err");
+                }
             } catch (SQLException | NumberFormatException e) {
                 e.printStackTrace();
                 response.sendRedirect("LibriServlet");
+            }
+        } else if ("update".equals(action)) {
+            try {
+                int idLibro = Integer.parseInt(request.getParameter("idLibro"));
+                int nuovaQuantita = Integer.parseInt(request.getParameter("quantita"));
+
+                if (nuovaQuantita <= 0) {
+                    carrello.removeIf(d -> d.getIdLibro() == idLibro);
+                    response.sendRedirect("CarrelloServlet");
+                    return;
+                }
+
+                Libro libro = libroDAO.doRetrieveById(idLibro);
+                if (libro != null) {
+                    for (DettaglioOrdine d : carrello) {
+                        if (d.getIdLibro() == idLibro) {
+                            if (nuovaQuantita <= libro.getDisponibilita()) {
+                                d.setQuantita(nuovaQuantita);
+                                response.sendRedirect("CarrelloServlet");
+                            } else {
+                                d.setQuantita(libro.getDisponibilita());
+                                response.sendRedirect("CarrelloServlet?msg=max_stock");
+                            }
+                            return;
+                        }
+                    }
+                }
+                response.sendRedirect("CarrelloServlet");
+            } catch (SQLException | NumberFormatException e) {
+                e.printStackTrace();
+                response.sendRedirect("CarrelloServlet");
             }
         } else if ("remove".equals(action)) {
             try {
@@ -98,6 +132,9 @@ public class CarrelloServlet extends HttpServlet {
                 e.printStackTrace();
                 response.sendRedirect("CarrelloServlet");
             }
+        } else if ("clear".equals(action)) {
+            carrello.clear();
+            response.sendRedirect("CarrelloServlet");
         } else {
             response.sendRedirect("CarrelloServlet");
         }
