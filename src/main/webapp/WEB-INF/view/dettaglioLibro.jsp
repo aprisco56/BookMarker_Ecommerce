@@ -122,7 +122,7 @@
                         <div class="review-header">
                             <span>
                                 <i class="fa-solid fa-user review-user-icon"></i>
-                                <%= rec.getEmailUtente() %>
+                                <%= rec.getNomeUtenteDisplay() %>
                             </span>
                             
                             <div class="review-meta-right">

@@ -43,62 +43,65 @@
         </nav>
     </header>
 
-    <main class="checkout-container">
-        <div class="checkout-total-box">
-            <h2 class="checkout-total-label">Totale da pagare:</h2>
-            <span class="checkout-total-amount">€ <%= String.format("%.2f", totale) %></span>
-        </div>
-
-        <h3 class="section-title"><i class="fa-solid fa-truck-fast"></i> Dettagli Spedizione</h3>
-
-        <form action="CheckoutServlet" method="POST">
-            <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
+    <main class="checkout-container" style="display: flex; justify-content: center; align-items: center; padding: 2rem;">
+        <div style="background-color: white; padding: 30px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); width: 100%; max-width: 800px; color: #333;">
             
-            <div class="form-row">
-                <div class="col">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" class="form-input" placeholder="Il tuo nome" required>
-                </div>
-                <div class="col">
-                    <label for="cognome">Cognome</label>
-                    <input type="text" id="cognome" name="cognome" class="form-input" placeholder="Il tuo cognome" required>
-                </div>
+            <div class="checkout-total-box" style="margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 15px;">
+                <h2 class="checkout-total-label" style="color: #333; margin: 0;">Totale da pagare:</h2>
+                <span class="checkout-total-amount" style="font-size: 1.5rem; font-weight: bold; color: #27ae60;">€ <%= String.format("%.2f", totale) %></span>
             </div>
 
-            <div class="form-group">
-                <label for="via">Indirizzo e Numero Civico</label>
-                <input type="text" id="via" name="via" class="form-input" placeholder="Es. Via Roma, 10" required>
-            </div>
+            <h3 class="section-title" style="color: #333;"><i class="fa-solid fa-truck-fast"></i> Dettagli Spedizione</h3>
 
-            <div class="form-row">
-                <div class="col col-wide">
-                    <label for="citta">Città</label>
-                    <input type="text" id="citta" name="citta" class="form-input" placeholder="Città" required>
+            <form action="CheckoutServlet" method="POST" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 15px;">
+                <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
+                
+                <div class="form-row" style="display: flex; gap: 1rem;">
+                    <div class="col" style="flex: 1;">
+                        <label for="nome" style="color: #555; font-weight: bold;">Nome</label>
+                        <input type="text" id="nome" name="nome" class="form-input" placeholder="Il tuo nome" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px;">
+                    </div>
+                    <div class="col" style="flex: 1;">
+                        <label for="cognome" style="color: #555; font-weight: bold;">Cognome</label>
+                        <input type="text" id="cognome" name="cognome" class="form-input" placeholder="Il tuo cognome" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px;">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="cap">CAP</label>
-                    <input type="text" id="cap" name="cap" class="form-input" placeholder="00100" pattern="[0-9]{5}" maxlength="5" title="Inserisci 5 numeri" required>
+
+                <div class="form-group">
+                    <label for="via" style="color: #555; font-weight: bold;">Indirizzo e Numero Civico</label>
+                    <input type="text" id="via" name="via" class="form-input" placeholder="Es. Via Roma, 10" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px;">
                 </div>
-                <div class="col">
-                    <label for="provincia">Prov.</label>
-                    <input type="text" id="provincia" name="provincia" class="form-input uppercase-input" placeholder="RM" maxlength="2" required>
+
+                <div class="form-row" style="display: flex; gap: 1rem;">
+                    <div class="col col-wide" style="flex: 2;">
+                        <label for="citta" style="color: #555; font-weight: bold;">Città</label>
+                        <input type="text" id="citta" name="citta" class="form-input" placeholder="Città" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px;">
+                    </div>
+                    <div class="col" style="flex: 1;">
+                        <label for="cap" style="color: #555; font-weight: bold;">CAP</label>
+                        <input type="text" id="cap" name="cap" class="form-input" placeholder="00100" pattern="[0-9]{5}" maxlength="5" title="Inserisci 5 numeri" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px;">
+                    </div>
+                    <div class="col" style="flex: 1;">
+                        <label for="provincia" style="color: #555; font-weight: bold;">Prov.</label>
+                        <input type="text" id="provincia" name="provincia" class="form-input uppercase-input" placeholder="RM" maxlength="2" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px; text-transform: uppercase;">
+                    </div>
                 </div>
-            </div>
 
-            <h3 class="section-title"><i class="fa-solid fa-credit-card"></i> Metodo di Pagamento</h3>
+                <h3 class="section-title" style="color: #333; margin-top: 20px;"><i class="fa-solid fa-credit-card"></i> Metodo di Pagamento</h3>
 
-            <div class="form-group">
-                <select id="pagamento" name="pagamento" class="form-select" required>
-                    <option value="" disabled selected>-- Seleziona un metodo --</option>
-                    <option value="Carta di Credito">Carta di Credito / Prepagata</option>
-                    <option value="PayPal">PayPal</option>
-                    <option value="Bonifico Bancario">Bonifico Bancario</option>
-                    <option value="Contrassegno">Pagamento alla Consegna (+2.00€)</option>
-                </select>
-            </div>
+                <div class="form-group">
+                    <select id="pagamento" name="pagamento" class="form-select" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; margin-top: 5px; cursor: pointer;">
+                        <option value="" disabled selected>-- Seleziona un metodo --</option>
+                        <option value="Carta di Credito">Carta di Credito / Prepagata</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Bonifico Bancario">Bonifico Bancario</option>
+                        <option value="Contrassegno">Pagamento alla Consegna (+2.00€)</option>
+                    </select>
+                </div>
 
-            <button type="submit" class="btn-submit">Conferma e Paga Ora <i class="fa-solid fa-angle-right"></i></button>
-        </form>
+                <button type="submit" class="btn-submit" style="background-color: #27ae60; color: white; border: none; padding: 15px; border-radius: 5px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 20px; width: 100%;">Conferma e Paga Ora <i class="fa-solid fa-angle-right"></i></button>
+            </form>
+        </div>
     </main>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Ordine {
     private int idOrdine;
@@ -10,6 +12,7 @@ public class Ordine {
     private String indirizzoSpedizione;
     private String metodoPagamento;
     private String stato;
+    private List<DettaglioOrdine> dettagli = new ArrayList<>();
 
     public Ordine() {}
 
@@ -33,4 +36,7 @@ public class Ordine {
 
     public String getStato() { return stato; }
     public void setStato(String stato) { this.stato = stato; }
+
+    public List<DettaglioOrdine> getDettagli() { return dettagli; }
+    public void setDettagli(List<DettaglioOrdine> dettagli) { this.dettagli = dettagli; }
 }
