@@ -148,7 +148,7 @@
                                 <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
                                 <input type="hidden" name="action" value="add">
                                 <input type="hidden" name="idLibro" value="<%= libro.getIdLibro() %>">
-                                <button type="submit" class="btn btn-add-cart">
+                                <button type="submit" class="btn btn-neutral btn-add-cart">
                                     <i class="fa-solid fa-cart-plus"></i> Aggiungi
                                 </button>
                             </form>
