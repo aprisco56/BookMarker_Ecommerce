@@ -21,7 +21,7 @@ public class LibroDAO {
             ps.setDate(5, libro.getDataPubblicazione());
             ps.setString(6, libro.getDescrizione());
             ps.setString(7, libro.getCopertina());
-            ps.setBoolean(8, libro.isAttivo());
+            ps.setBoolean(8,true);
             ps.setDouble(9, libro.getPrezzo());
             ps.executeUpdate();
         }
@@ -77,7 +77,7 @@ public class LibroDAO {
     }
 
     public void doUpdate(Libro libro) throws SQLException {
-        String query = "UPDATE libri SET titolo = ?, autore = ?, genere = ?, disponibilita = ?, data_pubblicazione = ?, descrizione = ?, copertina = ?, attivo = ?, prezzo = ? WHERE id_libro = ?";
+        String query = "UPDATE libri SET titolo = ?, autore = ?, genere = ?, disponibilita = ?, data_pubblicazione = ?, descrizione = ?, copertina = ?, prezzo = ? WHERE id_libro = ?";
         try (Connection connection = DBUtil.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, libro.getTitolo());
@@ -87,9 +87,8 @@ public class LibroDAO {
             ps.setDate(5, libro.getDataPubblicazione());
             ps.setString(6, libro.getDescrizione());
             ps.setString(7, libro.getCopertina());
-            ps.setBoolean(8, libro.isAttivo());
-            ps.setDouble(9, libro.getPrezzo());
-            ps.setInt(10, libro.getIdLibro());
+            ps.setDouble(8, libro.getPrezzo());
+            ps.setInt(9, libro.getIdLibro());
             ps.executeUpdate();
         }
     }

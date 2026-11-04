@@ -1,28 +1,224 @@
-.admin-container { max-width: 1200px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-.admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; vertical-align: middle; }
-.admin-table th { background-color: #2c3e50; color: white; }
-.btn-action { padding: 8px 12px; border-radius: 4px; color: white; text-decoration: none; font-size: 0.9rem; margin-right: 5px; }
-.btn-edit { background-color: #f39c12; }
-.btn-delete { background-color: #e74c3c; }
-.btn-add { background-color: #27ae60; padding: 10px 15px; text-decoration: none; color: white; border-radius: 5px; font-weight: bold; }
-.action-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.btn-logout-admin { background-color: #c0392b; color: white; }
-.btn-ordini { background-color: #3498db; margin-right: 10px; }
-.admin-table-img { width: 40px; height: auto; }
-.form-container { max-width: 600px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-.form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-.btn-submit { background-color: #27ae60; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; width: 100%; }
-.btn-submit-edit { background-color: #f39c12; }
-.error-msg { color: #e74c3c; margin-bottom: 15px; }
-.filter-section { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; }
-.filter-section input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-.btn-filter { background-color: #3498db; color: white; border: none; padding: 9px 15px; border-radius: 4px; cursor: pointer; }
-.badge { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; color: white; }
-.badge-completato { background-color: #27ae60; }
-.badge-spedito { background-color: #f39c12; }
-.badge-elaborazione { background-color: #3498db; }
-.text-center { text-align: center; }
-.btn-reset-admin { padding: 9px 15px; }
+.admin-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th, 
+.admin-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.admin-table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.btn-action {
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #f39c12;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+}
+
+.btn-add {
+    background-color: #27ae60;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-logout-admin {
+    background-color: #c0392b;
+    color: white;
+}
+
+.btn-ordini {
+    background-color: #3498db;
+    margin-right: 10px;
+}
+
+.admin-table-img {
+    width: 40px;
+    height: auto;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.btn-submit-edit {
+    background-color: #f39c12;
+}
+
+.error-msg {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.filter-section {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-section input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-filter {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 9px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.badge-completato {
+    background-color: #27ae60;
+}
+
+.badge-spedito {
+    background-color: #f39c12;
+}
+
+.badge-elaborazione {
+    background-color: #3498db;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-reset-admin {
+    padding: 9px 15px;
+}
+
+
+@media (max-width: 768px) {
+    
+    .admin-container, .form-container {
+        margin: 20px 10px; 
+        padding: 15px;
+        width: auto;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .action-header {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .action-header div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-add, .btn-ordini {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .nav-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .admin-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+        border: 1px solid #eee;
+    }
+}
