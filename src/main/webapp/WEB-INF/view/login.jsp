@@ -38,15 +38,6 @@
             %>
 
             <% 
-                String msg = request.getParameter("msg");
-                if ("resetSuccess".equals(msg)) {
-            %>
-                <div class="success-message">Password reimpostata con successo! Accedi ora.</div>
-            <% 
-                } 
-            %>
-
-            <% 
                 String errorMessage = (String) request.getAttribute("errorMessage");
                 if (errorMessage != null) {
             %>
@@ -67,9 +58,9 @@
                 </div>
 
                 <div class="forgot-password-container">
-                    <a href="RecuperoPasswordServlet" class="forgot-password-link">
+                    <span class="forgot-password-link" style="color: #666; cursor: default;">
                         Hai dimenticato la password?
-                    </a>
+                    </span>
                 </div>
 
                 <button type="submit" class="submit-btn">Login</button>
