@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         fetch("VerificaEmailServlet?email=" + encodeURIComponent(email))
-            .then(response => response.text())
-            .then(esito => {
-                if (esito.trim() === "occupata") {
+            .then(response => response.json()) 
+            .then(data => {
+                if (data.occupata) { 
                     showError("emailError", false, "Questa email è già registrata! Prova ad accedere.");
                 } else {
                     showError("emailError", true, "");
@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (showError("emailError", regexEmail.test(email), "Formato email non valido.")) {
             fetch("VerificaEmailServlet?email=" + encodeURIComponent(email))
-                .then(response => response.text())
-                .then(esito => {
-                    if (esito.trim() === "occupata") {
+                .then(response => response.json())
+                .then(data => {
+                    if (data.occupata) { 
                         showError("emailError", false, "Questa email è già registrata! Prova ad accedere.");
                     } else {
                         showError("emailError", true, "");

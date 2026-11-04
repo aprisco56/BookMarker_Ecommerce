@@ -19,7 +19,7 @@ public class VerificaEmailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         
-        response.setContentType("text/plain");
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
         boolean esiste = false;
@@ -37,9 +37,9 @@ public class VerificaEmailServlet extends HttpServlet {
         }
         
         if (esiste) {
-            response.getWriter().write("occupata");
+            response.getWriter().write("{\"occupata\": true}");
         } else {
-            response.getWriter().write("libera");
+            response.getWriter().write("{\"occupata\": false}");
         }
     }
 }
