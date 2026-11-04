@@ -1,29 +1,30 @@
-package dao;
+package dao; 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class DBUtil {
 
-    private static String URL = "jdbc:mysql://localhost:3306/bookmarker_ecommerce?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
-    private static String USER = "root";
-    private static String PASSWORD = "Bookmarker09!";
-    private static String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static DataSource ds;
 
-    public static void setConnectionConfig(String url, String user, String password, String driver) {
-        URL = url;
-        USER = user;
-        PASSWORD = password;
-        DRIVER = driver;
+    static {
+        try {
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            ds = (DataSource) envCtx.lookup("jdbc/ecommerceDB");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Connection getConnection() throws SQLException {
-        try {
-            Class.forName(DRIVER);
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("Driver non trovato", e);
+        if (ds == null) {
+            throw new SQLException("DataSource non inizializzato");
         }
+        return ds.getConnection();
     }
 }
